@@ -23,3 +23,14 @@ let drop = try Droplet(config)
 try drop.setup()
 
 try drop.run()
+
+
+/*
+Config files will be accessed in the following priority.
+
+CLI (see below)
+Config/secrets/
+Config/name-of-environment/
+Config/
+
+ */
