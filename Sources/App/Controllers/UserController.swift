@@ -85,7 +85,7 @@ final class UserController: ControllerRoutable {
             try andGroup.filter(Friend.Key.masterId, userId)
             try andGroup.filter(Friend.Key.friendId, friendId)
         }
-        if let friend = try friends.first() {
+        if let _ = try friends.first() {
             // 已收藏
         } else {
             let frindship = Friend(masterId: Identifier(userId), friendId: Identifier(friendId))

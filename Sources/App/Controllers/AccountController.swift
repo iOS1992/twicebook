@@ -103,7 +103,7 @@ final class AccountController: ControllerRoutable {
     }
 
     private func generyActiCode(email: String, password: String) throws -> String {
-        let md5Key = email + password + arc4random().description
+        let md5Key = email + password + Date().description
         let generStr = try Hash.make(.md5, md5Key.makeBytes()).hexString.lowercased()
         return generStr
     }
