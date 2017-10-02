@@ -12,7 +12,7 @@ extension Config {
     
     /// Configure providers
     private func setupProviders() throws {
-        try config.addProvider(MySQLProvider.Provider.self)
+        try addProvider(MySQLProvider.Provider.self)
         try addProvider(SendGridProvider.Provider.self)
     }
     
