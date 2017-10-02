@@ -1,4 +1,4 @@
-import PostgreSQLProvider
+import MySQLProvider
 import SendGridProvider
 
 extension Config {
@@ -12,7 +12,7 @@ extension Config {
     
     /// Configure providers
     private func setupProviders() throws {
-        try addProvider(PostgreSQLProvider.Provider.self)
+        try config.addProvider(MySQLProvider.Provider.self)
         try addProvider(SendGridProvider.Provider.self)
     }
     
