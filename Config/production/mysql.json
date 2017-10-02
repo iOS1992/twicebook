@@ -3,5 +3,5 @@
     "user": "root",
     "password": "lai12345",
     "database": "book",
-    "port": "5432"
+    "port": "3306"
 }
