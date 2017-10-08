@@ -28,5 +28,6 @@ extension Config {
         preparations.append(Collect.self)
         preparations.append(Friend.self)
         preparations.append(Comment.self)
+        preparations.append(Feedback.self)
     }
 }

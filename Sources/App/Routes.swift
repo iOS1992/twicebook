@@ -14,6 +14,17 @@ extension Droplet {
             return json
         }
 
+        post("feedback") { req in
+            guard let userId = req.data[Feedback.Key.userId]?.int else {
+                return try ApiRes.error(code: 1, msg: "miss userId")
+            }
+            guard let content = req.data[Feedback.Key.content]?.string else {
+                return try ApiRes.error(code: 2, msg: "miss content")
+            }
+            let feedback = Feedback(content: content, userId: userId)
+            try feedback.save()
+            return try ApiRes.success(data: ["success": true])
+        }
 
         group("book") { (router) in
             router.get("isbn", String.parameter) { req in
