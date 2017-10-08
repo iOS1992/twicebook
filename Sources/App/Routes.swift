@@ -4,7 +4,7 @@ extension Droplet {
     func setupRoutes() throws {
 
         get("/"){ req in
-            return try view.make("index.html")
+            return try self.view.make("index.html")
         }
 
         get("hello") { req in
