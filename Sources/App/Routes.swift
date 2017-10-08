@@ -49,7 +49,7 @@ extension Droplet {
             }
 
             /// 通过 bookId 获取书籍信息
-            router.get("/", handler: { req in
+            router.get("/info", handler: { req in
                 guard let bookId = req.data["bookId"]?.int else {
                     return try ApiRes.error(code: 1, msg: "miss bookId")
                 }
