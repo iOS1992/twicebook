@@ -38,6 +38,7 @@ extension Droplet {
                 return try Book.page(request: req)
             }
 
+            // 这个 api 有点问题
             router.get("/", Int.parameter) { req in
                 let userId = try req.parameters.next(Int.self)
                 guard let user = try User.find(userId) else {
@@ -46,6 +47,17 @@ extension Droplet {
                 let books = try user.createBooks()
                 return try ApiRes.success(data: ["books": books])
             }
+
+            /// 通过 bookId 获取书籍信息
+            router.get("/", handler: { req in
+                guard let bookId = req.data["bookId"]?.int else {
+                    return try ApiRes.error(code: 1, msg: "miss bookId")
+                }
+                guard let book = try Book.find(bookId) else {
+                    return try ApiRes.error(code: 2, msg: "not find book")
+                }
+                return try ApiRes.success(data: ["book": book])
+            })
         }
 
         group("base"){ (router) in
