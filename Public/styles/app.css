@@ -27,3 +27,8 @@
 .about-content ul {
     list-style-type: none;
 }
+.protocol-content {
+    font-size: 14px;
+    line-height: 24px;
+    padding: 16px;
+}
