@@ -3,10 +3,20 @@ import Vapor
 extension Droplet {
     func setupRoutes() throws {
 
+        /// 首页
         get("/"){ req in
             return try self.view.make("index.html")
         }
+        /// 用户协议
+        get("protocol") { req in
+            return try self.view.make("protocol.html")
+        }
+        /// 关于再书
+        get("about") { req in
+            return try self.view.make("about.html")
+        }
 
+        ///
         get("hello") { req in
             var json = JSON()
             try json.set("hello", "world")
@@ -14,6 +24,7 @@ extension Droplet {
             return json
         }
 
+        /// 意见反馈
         post("feedback") { req in
             guard let userId = req.data[Feedback.Key.userId]?.int else {
                 return try ApiRes.error(code: 1, msg: "miss userId")
