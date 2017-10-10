@@ -2,3 +2,16 @@
     font-size: 36px;
     text-align: center;
 }
+
+.app-index-div {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 120px;
+}
+
+.app-index-div a {
+    margin-right: 20px;
+    text-decoration: none;
+    background-color: #eee;
+    padding: 8px;
+}
