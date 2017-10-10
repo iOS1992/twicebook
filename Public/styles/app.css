@@ -15,3 +15,13 @@
     background-color: #eee;
     padding: 8px;
 }
+
+.about-content {
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.about-content ul {
+    list-style-type: none;
+}
