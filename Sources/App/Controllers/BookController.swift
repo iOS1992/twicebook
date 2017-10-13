@@ -18,13 +18,13 @@ final class BookController: ControllerRoutable {
     }
 
     func show(request: Request)throws -> ResponseRepresentable {
-        return try Book.page(request:request)
+        let query = try Book.makeQuery().filter(Book.Key.state, .notEquals, 1)
+        return try Book.page(request: request, query: query)
     }
 
     func update(request: Request)throws -> ResponseRepresentable {
         return "OK"
     }
-
 
     func create(request: Request)throws -> ResponseRepresentable {
         guard let userId = request.data["userId"]?.int else {

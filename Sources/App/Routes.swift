@@ -54,7 +54,10 @@ extension Droplet {
                 }
                 // 搜索分类
                 if let cateId = req.data["categoryId"]?.int {
-                    let query = try Book.makeQuery().filter(Book.Key.classifyId, cateId)
+                    let query = try Book.makeQuery().and({ (andGroup) in
+                        try andGroup.filter(Book.Key.classifyId, cateId)
+                        try andGroup.filter(Book.Key.state, .notEquals, 1) // 未审核的不显示
+                    })
                     return  try Book.page(request: req, query: query)
                 }
                 return try Book.page(request: req)
