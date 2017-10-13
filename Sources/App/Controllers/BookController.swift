@@ -23,7 +23,26 @@ final class BookController: ControllerRoutable {
     }
 
     func update(request: Request)throws -> ResponseRepresentable {
-        return "OK"
+        guard let state = request.data[Book.Key.state]?.int else {
+            return try ApiRes.error(code: 1, msg: "miss state")
+        }
+
+        /// 暂时不对权限限定
+        guard let _ = request.data[Book.Key.createId] else {
+            return try ApiRes.error(code: 2, msg: "miss userId")
+        }
+
+        guard let bookId = request.data[Book.Key.id] else {
+            return try ApiRes.error(code: 3, msg: "miss book id")
+        }
+
+        guard let book = try Book.find(bookId) else {
+            return try ApiRes.error(code: 4, msg: "not fond book")
+        }
+
+        book.state = state
+        try book.save()
+        return try ApiRes.success(data:["book": book])
     }
 
     func create(request: Request)throws -> ResponseRepresentable {
