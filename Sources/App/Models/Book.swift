@@ -33,6 +33,20 @@ final class Book: Model {
         case check = 1
         case putaway = 2
         case soldout = 3
+        case none = 0
+
+        static func generate(value: Int) -> State {
+            switch value {
+            case 1:
+                return .check
+            case 2:
+                return .putaway
+            case 3:
+                return .soldout
+            default:
+                return .none
+            }
+        }
     }
 
     var priceUnit: Parent<Book, PriceUnit> {
@@ -97,7 +111,8 @@ final class Book: Model {
         self.createId = try row.get(Key.createId)
         self.commentCount = try row.get(Key.commentCount)
         self.collectCount = try row.get(Key.collectCount)
-        self.state = try row.get(Key.state)
+        let tmp: Int = try row.get(Key.state)
+        self.state = State.generate(value: tmp)
     }
 
     func makeRow() throws -> Row {
