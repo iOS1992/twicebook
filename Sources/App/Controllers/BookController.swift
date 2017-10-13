@@ -31,7 +31,7 @@ final class BookController: ControllerRoutable {
             return try ApiRes.error(code: 2, msg: "miss userId")
         }
 
-        guard let bookId = request.data[Book.Key.id].int else {
+        guard let bookId = request.data[Book.Key.id]?.int else {
             return try ApiRes.error(code: 3, msg: "miss book id")
         }
 
