@@ -27,7 +27,7 @@ final class Book: Model {
 
     var commentCount: Int // 评论数
     var collectCount: Int // 收藏数
-    var state: State // 书籍的发布状态  1:审核中 2:上架 3:下架
+    var state: Int // 书籍的发布状态  1:审核中 2:上架 3:下架
 
     enum State: Int  {
         case check = 1
@@ -95,7 +95,7 @@ final class Book: Model {
         self.createId = createId
         self.commentCount = 0
         self.collectCount = 0
-        self.state = .check
+        self.state = 1
     }
 
     init(row: Row) throws {
@@ -111,8 +111,7 @@ final class Book: Model {
         self.createId = try row.get(Key.createId)
         self.commentCount = try row.get(Key.commentCount)
         self.collectCount = try row.get(Key.collectCount)
-        let tmp: Int = try row.get(Key.state)
-        self.state = State.generate(value: tmp)
+        self.state = try row.get(Key.state)
     }
 
     func makeRow() throws -> Row {
@@ -129,7 +128,7 @@ final class Book: Model {
         try row.set(Key.createId, createId)
         try row.set(Key.commentCount, commentCount)
         try row.set(Key.collectCount, collectCount)
-        try row.set(Key.state, state.rawValue)
+        try row.set(Key.state, state)
         return row
     }
 }
@@ -150,7 +149,7 @@ extension Book: JSONRepresentable {
         try json.set("creater", creater)
         try json.set(Key.commentCount, commentCount)
         try json.set(Key.collectCount, collectCount)
-        try json.set(Key.state, state.rawValue)
+        try json.set(Key.state, state)
         return json
     }
 
