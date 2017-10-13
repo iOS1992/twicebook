@@ -26,13 +26,12 @@ final class BookController: ControllerRoutable {
         guard let state = request.data[Book.Key.state]?.int else {
             return try ApiRes.error(code: 1, msg: "miss state")
         }
-
         /// 暂时不对权限限定
-        guard let _ = request.data[Book.Key.createId] else {
+        guard let _ = request.data["user_id"]?.int else {
             return try ApiRes.error(code: 2, msg: "miss userId")
         }
 
-        guard let bookId = request.data[Book.Key.id] else {
+        guard let bookId = request.data[Book.Key.id].int else {
             return try ApiRes.error(code: 3, msg: "miss book id")
         }
 
