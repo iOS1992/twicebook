@@ -69,8 +69,16 @@ extension Droplet {
                 guard let user = try User.find(userId) else {
                     return try ApiRes.error(code: 1, msg: "user not found")
                 }
-                let books = try user.createBooks()
-                return try ApiRes.success(data: ["books": books])
+                guard let pUserId = req.data["pid"]?.int else  {
+                    return try ApiRes.error(code: 2, msg: "pid miss")
+                }
+                if userId == pUserId { // 用户自己访问自己的
+                    let books = try user.createBooks()
+                    return try ApiRes.success(data: ["books": books])
+                } else { //
+                    let books = try user.createBooks().filter({$0.state != 1}) // 除了未审核的都可以看
+                    return try ApiRes.success(data: ["books": books])
+                }
             }
 
             /// 通过 bookId 获取书籍信息
