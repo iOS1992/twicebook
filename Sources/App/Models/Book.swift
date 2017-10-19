@@ -95,7 +95,7 @@ final class Book: Model {
         self.createId = createId
         self.commentCount = 0
         self.collectCount = 0
-        self.state = 1
+        self.state = 2 // 先设置为上架 
     }
 
     init(row: Row) throws {
