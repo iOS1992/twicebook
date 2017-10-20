@@ -15,6 +15,23 @@ final class BookController: ControllerRoutable {
         builder.post("create", handler: create)
         builder.put("update", handler: update)
         builder.get("/",handler: show)
+        builder.post("report", handler: report)
+    }
+
+    func report(request: Request) throws -> ResponseRepresentable {
+        guard let bookId = request.data[Book.Key.id]?.int else {
+            return try ApiRes.error(code:1, msg:"miss id")
+        }
+        guard let _ = request.data["userId"]?.int else {
+            return try ApiRes.error(code:2, msg:"miss userId")
+        }
+
+        guard let book = try Book.find(bookId) else {
+            return try ApiRes.error(code: 3, msg: "not found this book")
+        }
+        book.reportCount += 1
+        try book.save()
+        return try ApiRes.success(data:["success": true])
     }
 
     func show(request: Request)throws -> ResponseRepresentable {
