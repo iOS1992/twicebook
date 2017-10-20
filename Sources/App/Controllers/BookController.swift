@@ -25,7 +25,6 @@ final class BookController: ControllerRoutable {
         guard let _ = request.data["userId"]?.int else {
             return try ApiRes.error(code:2, msg:"miss userId")
         }
-
         guard let book = try Book.find(bookId) else {
             return try ApiRes.error(code: 3, msg: "not found this book")
         }
