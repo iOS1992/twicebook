@@ -22,6 +22,25 @@ final class UserController: ControllerRoutable {
         builder.delete("friend", handler: friendRemove)
         builder.get("friend", Int.parameter, handler:haveFriend)
         builder.get("friends", handler: userFriends)
+        builder.post("report", handler: report)
+    }
+
+    func report(request: Request) throws -> ResponseRepresentable {
+        guard let userId = request.data["userId"]?.int else {
+            return try ApiRes.error(code: 1, msg: "MISS USERID")
+        }
+        guard let reportId = request.data["reportId"]?.int else {
+            return try ApiRes.error(code: 2, msg: "miss report ID")
+        }
+        if userId == reportId {return try ApiRes.error(code: 3, msg: "miss UserId")}
+        guard let reportUser = try User.find(reportId) else {
+            return try ApiRes.error(code: 3, msg: "miss user")
+        }
+
+        reportUser.reportCount += 1
+        try reportUser.save()
+        return try ApiRes.success(data:["success": true])
+
     }
 
     func userFriends(request: Request) throws -> ResponseRepresentable {

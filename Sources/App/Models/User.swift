@@ -17,6 +17,7 @@ final class User: Model{
     var avator: String
     var info: String
     var password: String
+    var reportCount: Int
 
     struct Key {
         static let email = "email"
@@ -25,6 +26,7 @@ final class User: Model{
         static let info = "info"
         static let password = "password"
         static let id = "id"
+        static let reportCount = "report_count"
 
         static let active = "active"
     }
@@ -39,6 +41,7 @@ final class User: Model{
         self.name = name
         self.avator = avator
         self.info = info
+        self.reportCount = 0
     }
 
     init(row: Row) throws {
@@ -47,6 +50,7 @@ final class User: Model{
         avator = try row.get(Key.avator)
         info = try row.get(Key.info)
         password = try row.get(Key.password)
+        reportCount = try row.get(Key.reportCount)
     }
 
     func makeRow() throws -> Row {
@@ -56,6 +60,7 @@ final class User: Model{
         try row.set(Key.avator, avator)
         try row.set(Key.info, info)
         try row.set(Key.password, password)
+        try row.set(Key.reportCount, reportCount)
         return row
     }
 }
@@ -70,6 +75,7 @@ extension User: JSONRepresentable {
         try json.set(Key.info, info)
         try json.set(Key.name, name)
         try json.set(Key.active, isActive)
+        try json.set(Key.reportCount, reportCount)
         return json
     }
 }
@@ -104,6 +110,7 @@ extension User: Preparation {
             builder.string(Key.avator)
             builder.string(Key.info, length: 1024)
             builder.string(Key.password)
+            builder.int(Key.reportCount)
         })
     }
 
