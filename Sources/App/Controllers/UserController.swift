@@ -22,6 +22,8 @@ final class UserController: ControllerRoutable {
         builder.delete("friend", handler: friendRemove)
         builder.get("friend", Int.parameter, handler:haveFriend)
         builder.get("friends", handler: userFriends)
+
+        /// 举报 
         builder.post("report", handler: report)
     }
 
