@@ -42,7 +42,6 @@ final class UserController: ControllerRoutable {
         reportUser.reportCount += 1
         try reportUser.save()
         return try ApiRes.success(data:["success": true])
-
     }
 
     func userFriends(request: Request) throws -> ResponseRepresentable {

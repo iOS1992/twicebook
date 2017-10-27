@@ -180,7 +180,6 @@ extension Book: Preparation {
             builder.int(Key.state)
             builder.int(Key.reportCount)
         })
-
     }
 
     static func revert(_ database: Database) throws {
