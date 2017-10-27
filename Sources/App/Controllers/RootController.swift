@@ -18,6 +18,11 @@ final class RootController: ControllerRoutable {
             return try Book.page(request: req)
         })
 
+        /// 获取全部用户
+        router.get("users") { (req) -> ResponseRepresentable in
+            return try User.page(request: req)
+        }
+
         /// 更新书籍状态
         router.put("book", handler: { (request) -> ResponseRepresentable in
             guard let bookId = request.data[Book.Key.id]?.int else {
